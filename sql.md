@@ -1,5 +1,5 @@
-
 <!--Revising the Select Query I-->
+
 SELECT
     *
 FROM    
