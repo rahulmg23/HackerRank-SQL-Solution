@@ -186,3 +186,86 @@ WHERE
     SALARY > 2000 AND MONTHS < 10 
 ORDER BY
      EMPLOYEE_ID;
+
+
+
+
+
+
+#Aggregation
+
+#Query a count of the number of cities in CITY having a Population larger than 100000 .
+
+SELECT
+    COUNT(NAME)
+FROM
+    City
+WHERE
+    Population >= 100000
+
+
+#Query the total population of all cities in CITY where District is California.
+
+SELECT
+    SUM(population)
+FROM
+    City
+WHERE   
+    District = 'California'
+
+#Query the AVG population of all cities in CITY where District is California.
+
+SELECT
+    AVG(population)
+FROM
+    City
+WHERE   
+    District = 'California'
+
+
+#Query the average population for all cities in CITY, rounded down to the nearest integer.
+
+SELECT
+    ROUND(AVG(Population))
+FROM    
+    City
+
+
+#Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+SELECT
+    SUM(population)
+FROM
+    City
+WHERE
+    COUNTRYCODE = 'JPN'
+
+
+#Query the difference between the maximum and minimum populations in CITY.
+SELECT
+    MAX(population) - MIN(population)
+FROM
+    City
+
+
+#Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's  key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+Write a query calculating the amount of error (i.e.:  average monthly salaries), and round it up to the next integer.
+
+SELECT
+    CEIL(AVG(Salary) - AVG(Replace(Salary, 0, '')))
+FROM
+    Employees
+
+
+We define an employee's total earnings to be their monthly  worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as  space-separated integers.
+
+SELECT
+    Salary * Months AS EARNINGS,
+    COUNT(*)
+FROM
+    Employee
+GROUP BY
+    EARNINGS
+ORDER BY    
+    EARNINGS DESC 
+LIMIT 
+    1
