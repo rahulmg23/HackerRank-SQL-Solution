@@ -232,6 +232,7 @@ FROM
 
 
 #Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+
 SELECT
     SUM(population)
 FROM
@@ -241,6 +242,7 @@ WHERE
 
 
 #Query the difference between the maximum and minimum populations in CITY.
+
 SELECT
     MAX(population) - MIN(population)
 FROM
@@ -256,6 +258,8 @@ FROM
     Employees
 
 
+
+
 We define an employee's total earnings to be their monthly  worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as  space-separated integers.
 
 SELECT
@@ -269,3 +273,30 @@ ORDER BY
     EARNINGS DESC 
 LIMIT 
     1
+
+
+#Query the following two values from the STATION table:
+
+SELECT
+    ROUND(SUM(LAT_N),2),
+    ROUND(SUM(LONG_W),2)
+FROM
+    STATION
+
+#uery the sum of Northern Latitudes (LAT_N) from STATION having values greater than  and less than . Truncate your answer to  decimal places. WOB13
+
+SELECT
+    ROUND(SUM(LAT_N),4)
+FROM
+    STATION
+WHERE
+    LAT_N > 38.7850 AND LAT_N < 137.2345
+
+#Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than . Truncate your answer to  decimal places.
+
+SELECT
+    ROUND(MAX(LAT_N),4)
+FROM
+    STATION
+WHERE
+    LAT_N < 137.2345
