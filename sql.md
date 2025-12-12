@@ -192,9 +192,9 @@ ORDER BY
 
 
 
-#Aggregation
+# Aggregation
 
-#Query a count of the number of cities in CITY having a Population larger than 100000 .
+# Query a count of the number of cities in CITY having a Population larger than 100000 .
 
 SELECT
     COUNT(NAME)
@@ -204,7 +204,7 @@ WHERE
     Population >= 100000
 
 
-#Query the total population of all cities in CITY where District is California.
+# Query the total population of all cities in CITY where District is California.
 
 SELECT
     SUM(population)
@@ -213,7 +213,7 @@ FROM
 WHERE   
     District = 'California'
 
-#Query the AVG population of all cities in CITY where District is California.
+# Query the AVG population of all cities in CITY where District is California.
 
 SELECT
     AVG(population)
@@ -223,7 +223,7 @@ WHERE
     District = 'California'
 
 
-#Query the average population for all cities in CITY, rounded down to the nearest integer.
+# Query the average population for all cities in CITY, rounded down to the nearest integer.
 
 SELECT
     ROUND(AVG(Population))
@@ -231,7 +231,7 @@ FROM
     City
 
 
-#Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+# Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
 
 SELECT
     SUM(population)
@@ -241,7 +241,7 @@ WHERE
     COUNTRYCODE = 'JPN'
 
 
-#Query the difference between the maximum and minimum populations in CITY.
+# Query the difference between the maximum and minimum populations in CITY.
 
 SELECT
     MAX(population) - MIN(population)
@@ -249,7 +249,7 @@ FROM
     City
 
 
-#Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's  key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+# Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's  key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
 Write a query calculating the amount of error (i.e.:  average monthly salaries), and round it up to the next integer.
 
 SELECT
@@ -260,7 +260,7 @@ FROM
 
 
 
-We define an employee's total earnings to be their monthly  worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as  space-separated integers.
+# We define an employee's total earnings to be their monthly  worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as  space-separated integers.
 
 SELECT
     Salary * Months AS EARNINGS,
@@ -275,7 +275,7 @@ LIMIT
     1
 
 
-#Query the following two values from the STATION table:
+# Query the following two values from the STATION table:
 
 SELECT
     ROUND(SUM(LAT_N),2),
@@ -283,7 +283,7 @@ SELECT
 FROM
     STATION
 
-#uery the sum of Northern Latitudes (LAT_N) from STATION having values greater than  and less than . Truncate your answer to  decimal places. WOB13
+# Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than  and less than . Truncate your answer to  decimal places. WOB13
 
 SELECT
     ROUND(SUM(LAT_N),4)
@@ -292,7 +292,7 @@ FROM
 WHERE
     LAT_N > 38.7850 AND LAT_N < 137.2345
 
-#Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than . Truncate your answer to  decimal places.
+# Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than . Truncate your answer to  decimal places.
 
 SELECT
     ROUND(MAX(LAT_N),4)
@@ -300,3 +300,53 @@ FROM
     STATION
 WHERE
     LAT_N < 137.2345
+
+
+# Query the smallest Northern Latitude (LAT_N) from STATION that is greater than . Round your answer to  decimal places.
+
+
+SELECT
+    ROUND(LAT_N,4)
+FROM
+    Station
+WHERE
+    LAT_N > 38.7780
+ORDER BY 
+    LAT_N ASC
+LIMIT 1
+
+
+# Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than . Round your answer to  decimal places.
+
+SELECT 
+    ROUND(LONG_W, 4)
+FROM 
+    Station
+WHERE
+    LAT_N > 38.7780
+ORDER BY    
+    LAT_N 
+LIMIT 1
+    
+
+# Consider  and  to be two points on a 2D plane.
+
+ happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+ happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+ happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+ happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+Query the Manhattan Distance between points  and  and round it to a scale of  decimal places.
+
+
+SELECT
+    ROUND((MAX(LAT_N)-MIN(LAT_N)) + ((MAX(LONG_W) - MIN(LONG_W))),4)   
+FROM
+    STATION
+
+
+# Consider  and  to be two points on a 2D plane where  are the respective minimum and maximum values of Northern Latitude (LAT_N) and  are the respective minimum and maximum values of Western Longitude (LONG_W) in STATION.Query the Euclidean Distance between points  and  and format your answer to display  decimal digits.
+SELECT
+    ROUND(SQRT(((MAX(LAT_N) - MIN(LAT_N)) *  (MAX(LAT_N) - MIN(LAT_N))) +  
+    ((MAX(LONG_W) - MIN(LONG_W)) * (MAX(LONG_W) - MIN(LONG_W)))),4)
+FROM   
+    STATION
