@@ -350,3 +350,66 @@ SELECT
     ((MAX(LONG_W) - MIN(LONG_W)) * (MAX(LONG_W) - MIN(LONG_W)))),4)
 FROM   
     STATION
+
+
+
+
+# A median is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to  decimal places.
+SELECT ROUND(LAT_N,4) FROM 
+
+(SELECT
+    ROW_NUMBER()
+    OVER (ORDER BY LAT_N) AS RNK,
+    LAT_N
+FROM
+    STATION ) AS A 
+
+WHERE RNK = (
+    SELECT
+        ROUND(COUNT(*)/2)
+    FROM
+        STATION
+)
+
+## BASIC JOINS
+
+# Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+
+SELECT
+    SUM(CITY.POPULATION)
+FROM 
+    CITY
+JOIN 
+    COUNTRY 
+ON
+    CITY.CountryCode =  COUNTRY.Code
+WHERE
+    CONTINENT  = 'Asia'
+
+# Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+
+SELECT
+    City.Name
+FROM
+    City
+JOIN 
+    Country
+ON
+   CITY.CountryCode =  COUNTRY.Code 
+WHERE
+    CONTINENT = 'Africa'
+
+
+## Average Population of Each Continent
+
+SELECT
+    COUNTRY.Continent,
+    floor(avg(CITY.population))
+FROM
+    City
+JOIN 
+    Country
+ON  
+    CITY.CountryCode = COUNTRY.Code
+GROUP BY
+    COUNTRY.Continent
