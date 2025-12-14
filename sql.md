@@ -413,3 +413,48 @@ ON
     CITY.CountryCode = COUNTRY.Code
 GROUP BY
     COUNTRY.Continent
+
+
+
+
+## You are given two tables: Students and Grades. Students contains three columns ID, Name and Marks.
+
+SELECT
+    IF(Grade<8, Null, Name), Grade , Marks
+FROM
+    Students S
+JOIN
+    Grades G
+WHERE
+    S.Marks BETWEEN G.MIN_MARK AND G.MAX_MARK
+ORDER BY
+    Grade DESC,
+    NAME ASC
+
+## Top Competitors
+
+SELECT H.HACKER_ID, H.NAME
+FROM HACKERS H
+INNER JOIN SUBMISSIONS S
+ON H.HACKER_ID = S.HACKER_ID
+INNER JOIN CHALLENGES C
+ON S.CHALLENGE_ID = C.CHALLENGE_ID
+INNER JOIN DIFFICULTY D
+ON C.DIFFICULTY_LEVEL = D.DIFFICULTY_LEVEL
+WHERE S.SCORE = D.SCORE
+GROUP BY H.HACKER_ID, H.NAME
+HAVING COUNT(S.HACKER_ID) > 1
+ORDER BY COUNT(S.HACKER_ID) DESC, S.HACKER_ID ASC;
+
+## Ollivander's Inventory
+/
+SELECT W.ID, P.AGE, W.COINS_NEEDED, W.POWER 
+FROM WANDS AS W
+JOIN WANDS_PROPERTY AS P
+ON (W.CODE = P.CODE) 
+WHERE P.IS_EVIL = 0 AND W.COINS_NEEDED = (SELECT MIN(COINS_NEEDED) 
+                                          FROM WANDS AS X
+                                          JOIN WANDS_PROPERTY AS Y 
+                                          ON (X.CODE = Y.CODE) 
+                                          WHERE X.POWER = W.POWER AND Y.AGE = P.AGE) 
+ORDER BY W.POWER DESC, P.AGE DESC;
