@@ -429,7 +429,7 @@ WHERE
     S.Marks BETWEEN G.MIN_MARK AND G.MAX_MARK
 ORDER BY
     Grade DESC,
-    NAME ASC
+     NAME ASC
 
 ## Top Competitors
 
